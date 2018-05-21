@@ -2,7 +2,7 @@
 
 This is my compact example of script and version tracking in github
 
-You will find example code in the script folder:
+You will find example code in the script folder, I have also provided a markdown file in this folder to ease code output and interpretation. 
 
 __ANN_sensitivity.R__ - 
 

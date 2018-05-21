@@ -1,3 +1,11 @@
+
+#' ---
+#' #' title: Example Script: A new method of ANN feature importance 
+#' author: Tyler Gagne
+#' date: Spring 2018
+#' output: github_document
+#' ---
+
 # This is a draft script of a sensitivity analysis of variable importance
 # We utilize the variable perturbation methodlogy as a means to test variable importance
 
@@ -29,9 +37,9 @@ themeo <-theme_classic()+
   )
 
 #load data
-load('./data/example.RData')
+load('../data/example.RData')
 # Equal Area projection with Pacific Ocean centered meridian
-countries_df <- readOGR(dsn = "./data/country_repro1", layer = "ocean_50m") %>% tidy() 
+countries_df <- readOGR(dsn = "../data/country_repro1", layer = "ocean_50m") %>% tidy() 
 
 #########################
 # Neural network build: #
@@ -88,7 +96,7 @@ Perturbed_Importance_sim <-
   }
 
 
-sims <- 5
+sims <- 5  # this is a very small test simulation, suggested 500+ takes approximately 2 hours, quicker in paralell
 
 # Conducted on both terrestrial and marine datasets of species biodiversity
 # Within the loop below we conduct the input perturbation measure on ANN (MXnet or Keras)
@@ -313,20 +321,20 @@ ggplot(SEA_submission)+
 
 
 # This is a brief loop to plot 2D partial dependency plots of the models developed above
-par(mfrow = c(5,6))
+#par(mfrow = c(5,6))
 # centered on 0, this does take some time ~15 mins.
 
-for(i in 1:length(land_vars)) {
-  Land_varname <- land_vars[i]
-  pd_land <- partial(terre, pred.var = Land_varname)
-  pd_land$yhat <- pd_land$yhat - pd_land$yhat[1]
-  plot(pd_land[,1],pd_land[,2],type = 'l', xlab = colnames(pd_land)[1],ylab = 'tp', col = "#1a9850",ylim = c(-0.3,0.3))
+#for(i in 1:length(land_vars)) {
+#  Land_varname <- land_vars[i]
+#  pd_land <- partial(terre, pred.var = Land_varname)
+#  pd_land$yhat <- pd_land$yhat - pd_land$yhat[1]
+#  plot(pd_land[,1],pd_land[,2],type = 'l', xlab = colnames(pd_land)[1],ylab = 'tp', col = "#1a9850",ylim = c(-0.3,0.3))
   
-  sea_varname <- sea_vars[i]
-  pd_sea <- partial(oceaus, pred.var = sea_varname)
-  pd_sea$yhat <- pd_sea$yhat - pd_sea$yhat[1]
-  lines(pd_sea[,1],pd_sea[,2],type = 'l', xlab = colnames(pd_sea)[1],ylab = 'tp', col = "#4575b4")
-}
+#  sea_varname <- sea_vars[i]
+#  pd_sea <- partial(oceaus, pred.var = sea_varname)
+#  pd_sea$yhat <- pd_sea$yhat - pd_sea$yhat[1]
+#  lines(pd_sea[,1],pd_sea[,2],type = 'l', xlab = colnames(pd_sea)[1],ylab = 'tp', col = "#4575b4")
+#}
 
 
 
