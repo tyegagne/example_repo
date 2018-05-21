@@ -33,8 +33,9 @@ load('./data/example.RData')
 # Equal Area projection with Pacific Ocean centered meridian
 countries_df <- readOGR(dsn = "./data/country_repro1", layer = "ocean_50m") %>% tidy() 
 
-
-# Neural network build: 
+#########################
+# Neural network build: #
+#########################
 
 # establish hyper parameters of MXnet ANN, these are drawn from an earlier training script, Keras version available
 method_mod <- 'mxnet'
